@@ -11,4 +11,24 @@ module.exports = (sequelize, DataTypes) => {
   };
   return page;
 };
-var Page=module.exports=sequelize.model('Page','PageSchema');
+
+
+
+
+//Change delete if wrong happens from here
+//Sorry for this it belongs to Migrations of this Models
+// 'use strict';
+// module.exports = {
+//   up: (queryInterface, Sequelize) => {
+//     return queryInterface.bulkInsert('page', [{
+//       title:'asad',
+//       slug:'asad',
+//       content:'content',
+//       sorting:0
+//       }], {});
+//   }
+//
+//   down: (queryInterface, Sequelize) => {
+//     return queryInterface.bulkDelete('page', null, {});
+//   }
+// };

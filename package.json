@@ -16,10 +16,12 @@
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
     "express-validator": "^5.1.2",
+    "mustache-express": "^1.2.5",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.3",
     "pg": "^7.4.1",
     "sequelize": "^4.37.6",
-    "sequelize-cli": "^4.0.0"
+    "sequelize-cli": "^4.0.0",
+    "sequelize-handlers": "^1.0.6"
   }
 }
