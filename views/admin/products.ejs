@@ -1,0 +1,45 @@
+<%- include('../layouts/adminheader') %>
+
+<h2 class="page-title"><b>Products</b></h2><br>
+<a href="/admin/products/add-product" class="btn btn-success btn-lg"><b>Add new products</b></a>
+<br><br>
+<br><br>
+<table  id="table_id" class="display">
+
+    <thead>
+        <tr class="home">
+            <th>Product</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Product Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% products.forEach(function(product){ %>
+        <tr>
+            <td><%= product.title %></td>
+            <td>$<%= parseFloat(product.price).toFixed(2) %></td>
+            <td><%= product.category %></td>
+            <td>
+                    <% if (product.images == "") { %>
+                        <img id="noimage" src="/images/noimage.png">
+                        <% } else { %>
+                        <img id="noimage" src="/product_images/<%= product.id %>/<%= product.images %>">
+                        <% }%>
+           
+                <!-- <img src="/product_images/<%= product.id %>/<%= product.images %>"> -->
+               
+            </td>
+            <td><a href="/admin/products/edit-product/<%= product.id %>" style="text-decoration: none;"><button type="button" class="btn btn-warning btn-sm"><b style="color:wheat;">EDIT</b></a></button></td>
+            <td><a class="confirmDeletion" href="/admin/products/delete-product/<%= product.id %>" style="text-decoration: none;"><button type="button" class="btn btn-danger btn-sm"><b style="color:wheat;">Delete</b></a></button></td>
+           
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+
+
+<%- include('../layouts/adminfooter') %>

@@ -1,0 +1,89 @@
+  .line
+    {
+        margin-top:0px;
+        height:20px;
+        width:100%;
+        background-color:wheat;
+    }
+    header
+    {
+    background-color: white;
+    }
+    header>h4
+    {
+        color:darkred;
+        position:absolute;
+        width:100%;
+        left:500px;
+        top:-0px;
+    }
+    
+    ::selection {
+      background: orange; 
+    }
+    
+    .nav ul {
+        list-style-type: none;
+        overflow: hidden;
+        background-color:black;
+        width:75%;
+        margin-left: 130px;
+        border-bottom-right-radius: 80px;
+    }
+    .nav li {
+        float: left;
+    }
+    
+    .nav li a {
+        display: block;
+        color: orange;
+        text-align: center;
+        padding: 12px 14px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+    .nav li a:hover {
+        background-color: white;
+        color:red;
+    }
+    .nav li a:hover
+    {
+     background-color:white;   
+    }
+    .nav a:hover { 
+        border-top:4px solid red;
+    }
+    .nav>a>img
+    {
+        position:absolute;
+       left:80px;
+        top:130px;
+        border-top: 5px solid red;
+        width:45px;
+    }
+    .Mcontent
+    {
+        width:90%;
+        margin-left:50px;
+        height:1170px;
+        background-color:white;
+    }
+    .Mcontent >.button1 {
+        background-color: palegoldenrod; 
+        border: none;
+        color: black;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-left:20px;
+        cursor: pointer;
+        width:30%;
+        height:300px;
+        border-bottom-right-radius: 40px;
+           border-top-left-radius: 40px;
+    }
+    .Mcontent>.button1:hover{
+          transition: background-color 0.6s ease;
+          background-color: lightgray;
+          color:darkred;
+    }

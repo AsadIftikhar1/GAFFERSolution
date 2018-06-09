@@ -1,0 +1,47 @@
+<%- include('../layouts/adminheader') %>
+
+<h2 class="page-title"><b>Categories</b></h2><br><br>
+<a href="/admin/categories/add-category" class="btn btn-success btn-lg"><b>Add new Categories</b></a>
+<br><br>
+<br><br>
+
+<table id="table_id" class="display">
+
+    <thead>
+        <tr class="home">
+            <th>Categories</th>
+            <th>Edit</th>
+            <th>Delete</th> 
+        </tr>
+    </thead>
+    <tbody>
+        <% categories.forEach(function(cat){ %>
+                    <tr>
+            <td><%= cat.title %></td>
+            <td><a href="/admin/categories/edit-category/<%= cat.id %>" style="text-decoration: none;"><button type="button" class="btn btn-warning btn-sm"><b style="color:wheat;">EDIT</b></a></button></td>
+            <td><a class="confirmDeletion" href="/admin/categories/delete-category/<%= cat.id %>" style="text-decoration: none;"><button type="button" class="btn btn-danger btn-sm"><b style="color:wheat;">Delete</b></a></button></td>
+                    </tr>
+                    <% }); %>
+    </tbody>
+</table>
+
+<%- include('../layouts/adminfooter') %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
