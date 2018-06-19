@@ -11,33 +11,33 @@ const ejsLint = require('ejs-lint');
 var mkdirp = require('mkdirp');
 var fileUpload=require('express-fileupload');
 var models=require('./models');
+var passport=require('passport');
+var cors=require('cors');
+var env = require('dotenv').load();
+var bCrypt=require('bcrypt-nodejs');
 
-
-
-// const sef = sequelize-express-findbyid (model[, primaryKey = 'id'])
-
-//var models=require('./models');
-
-
-
-// import models from './models';
+//For Cross Origins and for Saving cookies
+app.use(cors({
+  origin:['http://localhost:4200','http://127.0.0.1:4200'],
+  credentials:true
+}))
 
 //Setting Mustache of Express for CRUD functionalities
 app.engine('mustache',mustacheExpress());
 app.set('view engine','mustache');
 
-
-
-//var config=require('./config/database');
-
 //View Engine Setup
 
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');
+app.engine('html',require('ejs').renderFile);
 
 //Set public folder
+
 app.use(express.static(path.join(__dirname,'public')));
 app.use(express.static(__dirname + '/public'));
+
+
 
 
 //Set Global Errors value
@@ -87,17 +87,25 @@ app.use(fileUpload());
 //Body parser Middleware
 //
 //Parse application
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true}));
 //Parse application/json
 app.use(bodyParser.json());
 
 //Express Session Middleware
 app.use(session({
-  secret: 'keyboard cat',
+  name:'GafferCart',
+  secret: 'Gaffer',
   resave: true,                //It was not abling to send flash messages because it uses session thats why ture
   saveUninitialized: true,
-  // cookie: { secure: true }
+  cookie: { 
+    maxAge:3600000,
+    httpOnly:false,
+    secure: false
+  }
 }));
+
+
+
 //Validator Middleware
 app.use(expressValidator({
     errorFormatter:function(param,msg,value){
@@ -196,9 +204,24 @@ function normalizePort(val) { /* ... */ }
 function onError(error) { /* ... */ }
 function onListening() { /* ... */ }
 
+//Passport config
+require('./config/passport')(passport)
+//Passport MiddleWare
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Setting Global Variables
+app.get('*',function(req,res,next){
+  res.locals.cart=req.session.cart;
+  res.locals.user=req.user||null;
+  next();
+})
+
 //Set Routes
 var pages=require('./routes/pages.js');
 var products=require('./routes/products.js');
+var cart=require('./routes/cart.js');
+var users=require('./routes/users.js');
 var adminPages=require('./routes/admin_pages.js');
 var adminCategories=require('./routes/admin_categories.js');
 var adminProducts=require('./routes/admin_products.js');
@@ -209,6 +232,27 @@ app.use('/admin/categories',adminCategories);
 app.use('/admin/products',adminProducts);
 app.use('/products',products); //for Displaying all of the PRODUCTS
 app.use('/',pages);
+app.use('/cart',cart);
+app.use('/users',users);
+
+// var authRoute = require('./routes/auth.js')(app);
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.send(err.status);
+});
 
 
 //Start the server
@@ -216,6 +260,7 @@ var port=3000;
 app.listen('3000',()=>{
   console.log('server started on port 3000');
 });
+
 
 
 

@@ -1,5 +1,3 @@
-
-
             var express = require('express');
             var router = express.Router();
             var expressValidator = require('express-validator');
@@ -39,6 +37,7 @@
                                 products:products,
                                 count:count
                             });
+                            // res.json(products);
                         });
                     });
             
@@ -66,26 +65,6 @@
                 });
          });
 
-//         router.get('/add-product',function(req,res){
-
-//             models.Category.findAll({
-//                 order: [
-//                     ['id', 'ASC']
-//                 ],
-//             }).then(function(categories){
-// console.log('here is the data')
-// console.log(categories)
-//                 res.render('admin/add_product',{
-//                     categories:categories
-//                 });
-//             }).catch(function(err){
-//                 console.log(err);
-//             });
-//         })
-                
-             /*
-                   
-        
                     /*
                     * POST add Product 
                     */
@@ -143,24 +122,24 @@
                                     
                                         .then((product)=>{
                                 
-                                 mkdirp('public/product_images/'+product.id,function(err){
+                                 mkdirp('/public/product_images/product_images/'+product.id,function(err){
                                      return console.log(err);
                                  });          
-                                 mkdirp('public/product_images/'+product.id+'/gallery',function(err){
+                                 mkdirp('/public/product_images/product_images/'+product.id+'/gallery',function(err){
                                     return console.log(err);
                                 });
-                                mkdirp('public/product_images/'+product.id+'/gallery/thumbs',function(err){
+                                mkdirp('/public/product_images/'+product.id+'/gallery/thumbs',function(err){
                                     return console.log(err);
                                 });
                                 if (imageFile != "") {
                                     var productImage = req.files.image;
-                                    var path = 'public/product_images/' + product.id + '/' + imageFile;
+                                    var path = '/public/product_images/product_images/' + product.id + '/' + imageFile;
             
                                     productImage.mv(path, function (err) {
                                         return console.log(err);
                                     });
                                 }
-            
+                                
                                         req.flash('success', 'Product added!');
                                         res.redirect('/admin/products');
                                     })

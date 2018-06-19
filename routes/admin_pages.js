@@ -9,7 +9,7 @@
             var Page = require('../models/page');
 
                     /*
-                    * Get Page model 
+                    * Get All pages
                     */
 
                     router.get('/',function(req,res){
@@ -19,16 +19,52 @@
                                 ['sorting', 'DESC']
                             ],
                         }).then(function(pages){
-                            res.render('admin/pages',{
-                                pages:pages
-                            });
+                            res.status(200).json(pages);
                         }).catch(function(err){
-                            console.log(err);
+                            res.status(500).send(err);
                         });
                     });
             
+         //Showing Single Page            
+        //    router.get('/details-page/:id',function(req,res){
+               
+        //        models.Page.findOne({
+        //            where:{id:req.params.id}
+        //        })
+        //        .then(function(page){
+        //         res.status(200).json(page);
+        //        }).catch(function(err){
+        //            res.status(500).send(err);
+        //        })
+        //    }) 
+        // router.get('/details-page/:id', function(req, res, next) {
+        //     models.Page.findOne( function (err, pages) {
+        //       if (err) return next(err);
+        //       res.json(pages);
+        //     });
+        //   });
+        router.get('/details-page/:id', function (req, res) {
+
+                        
+            models.Page.findOne({
+                where: {
+                    id:req.params.id
+                }         
+            })
+       
+            .then(function(page){
+                // res.render('http://localhost:3000/admin/pages');
+                res.json(page);
+            })
+                .catch(function(err){
+                console.log(err);
+                
+        })
+    });
+                    
+
                         /*
-                        * GET add page
+                        * GET SINGLE PAGE
                         */
             router.get('/add-page', function (req, res) {
 
@@ -79,10 +115,11 @@
                             })
                             
                                 .then((page)=>{
-                        
-                                req.flash('success', 'Page added!');
-                                res.redirect('/admin/pages');
-                            })
+                                    //  req.flash('success', 'Page added!');
+                                    res.json(page);
+                                    
+                            //     res.redirect('/admin/pages');
+                             })
                             .catch((err) => {
                             console.log(err);
                             })
@@ -135,40 +172,6 @@ router.post('/reorder-pages', function (req, res) {
     });
 
 });
-
-                    //         /*
-                    //         *
-                    //         *    POST REORDER PAGES AGAIN COPY THE GET METHOD 
-                    //         */
-                    
-                    
-                    // router.get('/reorder-pages',function(req,res){
-
-                    //     var ids=req.body.id['id[]'];
-                    //     var count=0;
-
-                        
-                    //     for(var i=0; i<ids.length; i++)
-                    //     {
-                    //         var id=ids[i];
-                    //         count++;
-                    //     (function(count){
-                    //         models.page.find({
-                    //             where:{
-                    //                 id:req.params.id
-                    //             }
-                    //         })
-                    //             .then(function(page){
-                    //                 page.sorting=count;
-                    //             })
-                    //             .catch(function(err){
-                    //                 console.log(err);
-                    //             })
-                    //         })(count);
-                    //         }
-                    //     });
-                    
-
                         /*
                         * GET Editing page
                         */
@@ -240,8 +243,9 @@ router.post('/reorder-pages', function (req, res) {
                         models.Page.update(values,{...condition,...options})  //ES6 sprade operator       
 
                             .then((page) => {
-                                req.flash('success', 'Page added!');
-                                res.redirect('/admin/pages');
+                                res.json(page);
+                                // req.flash('success', 'Page Updated!');
+                                // res.redirect('/admin/pages');
                             })
                             .catch(function(err){
                                 console.log(err);
@@ -249,8 +253,12 @@ router.post('/reorder-pages', function (req, res) {
                         }
                         });
                 
-                            /*
-                            * Get Delete Page model 
+
+
+
+
+                    /*
+                            *  Delete Page 
                             */
 
                     router.get('/delete-page/:id',function(req,res){
@@ -260,10 +268,10 @@ router.post('/reorder-pages', function (req, res) {
                             where:{id:req.params.id}
                         })
                         .then(function(page){
-                            req.flash('success','Page Deleted');
-                            res.redirect('/admin/pages/');
+                            res.json(page);
+                            // req.flash('success','Page Deleted');
+                            // res.redirect('/admin/pages/');
                         });
-                        
                     });
                 
             // Exports

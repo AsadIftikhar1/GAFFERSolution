@@ -5,7 +5,7 @@ var models=require('../models');
 
 
 
-//Routes for user
+//Get Add
 router.get('/',function(req,res){
   var slug=req.params.slug;
   models.Page.findOne({
@@ -22,7 +22,7 @@ router.get('/',function(req,res){
     console.log(err);
   })
 });
-
+ 
 
 
 //Routes for Get a Page

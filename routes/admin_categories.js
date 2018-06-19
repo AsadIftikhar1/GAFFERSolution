@@ -19,9 +19,10 @@
                                 ['id', 'ASC']
                             ],
                         }).then(function(categories){
-                            res.render('admin/categories',{
-                                categories:categories
-                            });
+                            // res.render('admin/categories',{
+                            //     categories:categories
+                            // });
+                            res.json(categories);
                         }).catch(function(err){
                             console.log(err);
                         });

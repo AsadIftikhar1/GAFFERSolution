@@ -12,20 +12,6 @@
         <p><a href="/cart/add/<%= p.slug %>">Add To Cart</a></p>      
     </div>
    
-   <div class="col-xs-12">
-        <ul class="gallery">
-            <% galleryImages.forEach(function(images){ %>
-            <% if (images != "thumbs") { %>
-            <li>
-                <!--<a data-fancybox="gallery" href="/product_images/<%= p.id %>/gallery/<%= images %>"> -->
-                    <img src="/product_images/<%= p.id %>/gallery/thumbs/<%= images %>" alt="">
-                </a>
-            </li>
-            <% } %>
-            <% }); %>
-        </ul>
-    </div>
-</div>
 <!-- 
 - will gave Content Where as = will gave Html <P>tag in the Browser</P>  -->
 <% include layouts/footer  %>
