@@ -14,9 +14,9 @@ export class ProductComponent implements OnInit {
 
   products:any;
 
-  displayedColumns = ['id','title','images'];
+  displayedColumns = ['id','title','images' ,'slug','desc','category','price','createdAt','updatedAt'];
   dataSource = new ProductDataSource(this.product);
-  
+  bb
   constructor(private product:ProductService) { }
 
   ngOnInit() {

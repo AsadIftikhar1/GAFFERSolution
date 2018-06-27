@@ -51,7 +51,7 @@
                     id:req.params.id
                 }         
             })
-       
+        
             .then(function(page){
                 // res.render('http://localhost:3000/admin/pages');
                 res.json(page);
@@ -60,10 +60,33 @@
                 console.log(err);
                 
         })
-    });
-                    
+        });
+          
+    /*
+    *
+    * Getting Single Page for Client View
+    *
+    */
+   
+   router.get('/detail-page/:title', function (req, res) {
 
-                        /*
+                        
+    models.Page.findOne({
+        where: {
+            title:req.params.title
+        }         
+    })
+
+    .then(function(page){
+        // res.render('http://localhost:3000/admin/pages');
+        res.json(page);
+    })
+        .catch(function(err){
+        console.log(err);
+        
+})
+});
+              /*
                         * GET SINGLE PAGE
                         */
             router.get('/add-page', function (req, res) {

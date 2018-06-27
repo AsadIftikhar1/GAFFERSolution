@@ -32,17 +32,18 @@ router.get('/:category',function(req,res){
   var categorySlug=req.params.category;
 
   models.Category.findOne({
-   where:{slug:categorySlug}
+   where:{title:categorySlug}
   })
   .then(function(c){
    models.Product.findAll({
      where:{category:categorySlug}
   })
    .then(function(products){
-    res.render('cat_products',{
-    title:c.title,
-    products:products
-  })  
+    // res.render('cat_products',{
+    // title:c.title,
+    // products:products
+  // })  
+  res.json(products);
 })
   })
   .catch((err) => {

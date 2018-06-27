@@ -14,7 +14,7 @@ export class PageComponent implements OnInit {
 
   pages:any;
 
-  displayedColumns = ['id','title', 'author'];
+  displayedColumns = ['id','title', 'slug','createdAt','updatedAt'];
 dataSource = new PageDataSource(this.page);
 
   constructor(private page:PageService) { }

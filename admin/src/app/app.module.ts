@@ -11,6 +11,7 @@ import { PageEditComponent } from './page-edit/page-edit.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 //Defining routes
 const appRoutes:Routes=[
 {
@@ -35,7 +36,12 @@ const appRoutes:Routes=[
   },
   { path:'admin/products',component:ProductComponent },
   { path:'admin/orders',component:AdminOrdersComponent },
-  { path:'admin/products/new',component:ProductFormComponent }
+  { path:'admin/products/new',component:ProductFormComponent },
+  { path:'admin/categories',component:CategoryComponent},
+  { path:'admin/categories/add-category', component:CategoryCreateComponent,data:{title:'Create Categories'}},
+  { path:'admin/categories/details-category/:id', component:CategoryDetailComponent
+  
+  },
    
   
 ];
@@ -51,12 +57,15 @@ import {
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule } from "@angular/material";
-import { AdminProductsComponent } from './admin-products/admin-products.component';
+// import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { CategoryService } from './category.service';
 import { ProductService } from './product.service';
 import { ProductComponent } from './product/product.component';
+import { CategoryComponent } from './category/category.component';
+import { CategoryCreateComponent } from './category-create/category-create.component';
+import { CategoryDetailComponent } from './category-detail/category-detail.component';
 
 @NgModule({
   declarations: [
@@ -65,10 +74,12 @@ import { ProductComponent } from './product/product.component';
     PageDetailComponent,
     PageCreateComponent,
     PageEditComponent,
-    AdminProductsComponent,
     AdminOrdersComponent,
     ProductFormComponent,
-    ProductComponent
+    ProductComponent,
+    CategoryComponent,
+    CategoryCreateComponent,
+    CategoryDetailComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

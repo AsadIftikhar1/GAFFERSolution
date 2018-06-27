@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
+import { CATCH_ERROR_VAR } from '@angular/compiler/src/output/output_ast';
 
 
 const httpOptions = {
@@ -9,7 +10,10 @@ const httpOptions = {
 };
 
 const apiUrl = "http://localhost:3000/admin/categories";
- 
+const apiUrl2 = "http://localhost:3000/admin/categories/details-category";
+const apiUrl5 = "http://localhost:3000/admin/categories/delete-category";
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,5 +48,19 @@ export class CategoryService {
       catchError(this.handleError));
   }
 
+ getCategory(id: string): Observable<any>{
+  const url= `${apiUrl2}/${id}`;
+  return this.http.get(url,httpOptions).pipe(
+    map(this.extractData),
+    catchError(this.handleError)
+  )
+}
+deleteCategory(id: string): Observable<{}> {
+  const url = `${apiUrl5}/${id}`;
+  return this.http.get(url, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+}
 }
 

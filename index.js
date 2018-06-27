@@ -1,7 +1,6 @@
 const express=require('express');
-var path=require('path');
-var bodyParser=require('body-parser');
-var app=express();  //init app
+const path=require('path');
+const bodyParser=require('body-parser');
 var session=require('express-session');
 var expressValidator=require('express-validator');
 var mustacheExpress=require('mustache-express');
@@ -15,6 +14,27 @@ var passport=require('passport');
 var cors=require('cors');
 var env = require('dotenv').load();
 var bCrypt=require('bcrypt-nodejs');
+var router = express.Router();
+const exphbs=require('express-handlebars');
+const xoauth2=require('xoauth2');
+const paypal=require('paypal-rest-sdk');
+// var config=JSON.parse(fs.readFileSync("config.json"));
+
+
+paypal.configure({
+  'mode':'sandbox',
+  'client_id':'AQ6-iukrxSP8vM0XuXHQUxT4v0Cz3sC51O3Ozt-tTvtll3qil1-YrcGUm0oofRNMCsIeqshJ_456of-I',
+  'client_secret':'ENmK2eH-rvKztpj0E54-xk-7YKP37UoKQUT8reSkbHsOlh759qbMO80gqGqO3O3orbZ-6-x2_i1nYTiL'
+})
+
+const nodemailer=require('nodemailer');
+
+var app=express();  //init app
+
+// app.engine('handlebars',exphbs());
+// app.set('view engine','handlebars');
+
+
 
 //For Cross Origins and for Saving cookies
 app.use(cors({
@@ -37,10 +57,8 @@ app.engine('html',require('ejs').renderFile);
 app.use(express.static(path.join(__dirname,'public')));
 app.use(express.static(__dirname + '/public'));
 
-
-
-
 //Set Global Errors value
+
 app.locals.errors=null;
 
 //Get Page model for THE CLIENT SIDE
@@ -95,7 +113,7 @@ app.use(bodyParser.json());
 app.use(session({
   name:'GafferCart',
   secret: 'Gaffer',
-  resave: true,                //It was not abling to send flash messages because it uses session thats why ture
+  // resave: true,                //It was not abling to send flash messages because it uses session thats why ture
   saveUninitialized: true,
   cookie: { 
     maxAge:3600000,
@@ -104,8 +122,65 @@ app.use(session({
   }
 }));
 
+app.get('/',(req,res)=>{
+  res.render('contact');
+  })
+  
+  
+  app.post('/send',(req, res)=> {
+    const output=`
+    <p style="width:100%; height:80px; background-color:#800000;"><font style="margin-left:300px; color:#FFEBCD; font-size:54px;"><b>Gaffer Cart<b></font></p>
+    <h3>Contact Details</h3>
+    <ul style="list-style-type:none;">
+    <li style="width:80%; height:auto; background-color:#FFEBCD; padding-left:15px; padding-top:5px;">Name:${req.body.name}</li>
+    <li style="width:80%; height:auto; background-color:#FFEBCD; padding-left:15px; padding-top:5px;">Company:${req.body.company}</li>
+    <li style="width:80%; height:auto; background-color:#FFEBCD; padding-left:15px; padding-top:5px;">Email:${req.body.email}</li>
+    <li style="width:80%; height:auto; background-color:#FFEBCD; padding-left:15px; padding-top:5px;">Phone:${req.body.phone}</li>
+    </ul>
+    <h3 style="width:80%; height:40px; background-color:lightgreen; margin-left:80px; padding-left:15px; padding-top:15px;">Message From the User</h3>
+    <p style="width:80%; height:auto; background-color:#FFEBCD; padding-left:15px;">${req.body.message}</p>
+    `;
+    // console.log(req.body);
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      secure: false, // true for 465, false for other ports
+      port: 25,
+      auth: {
+ 
+          user: 'asadiftikhar539@gmail.com', // generated ethereal user
+          pass: 'GAFFER423337', // generated ethereal password
+      },
+      tls:{
+        rejectUnauthorized:false
+      }
+  });
 
+  // setup email data with unicode symbols
+  let HelperOptions = {
+      from: '"Asad" <asadiftikhar539@gmail.com>', // sender address
+      to: 'asadiftikhar539@gmail.com', // list of receivers
+      subject: 'Gaffer  ✔', // Subject line
+      text: 'Hello world?', // plain text body
+      html: output // html body
+  };
 
+  // send mail with defined transport object
+  transporter.sendMail(HelperOptions, (req,res) => {
+      // if (error) {
+      //     return console.log(error);
+      // }
+      // console.log('Message sent');
+      // Preview only available when sending through an Ethereal account
+      res.render(contact);
+      // console.log(info);
+      
+
+  });
+// res.render(con=)
+
+  })
+  
 //Validator Middleware
 app.use(expressValidator({
     errorFormatter:function(param,msg,value){
@@ -215,7 +290,7 @@ app.get('*',function(req,res,next){
   res.locals.cart=req.session.cart;
   res.locals.user=req.user||null;
   next();
-})
+ })
 
 //Set Routes
 var pages=require('./routes/pages.js');
@@ -260,9 +335,6 @@ var port=3000;
 app.listen('3000',()=>{
   console.log('server started on port 3000');
 });
-
-
-
 
 
 module.exports=sequelize;

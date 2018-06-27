@@ -33,11 +33,11 @@
                         }) 
                         .then(function(products){
                             // res.json(products);
-                            res.render('admin/products',{
-                                products:products,
-                                count:count
-                            });
-                            // res.json(products);
+                            // res.render('admin/products',{
+                            //     products:products,
+                            //     count:count
+                            // });
+                            res.json(products);
                         });
                     });
             
@@ -122,20 +122,25 @@
                                     
                                         .then((product)=>{
                                 
-                                 mkdirp('/public/product_images/product_images/'+product.id,function(err){
-                                     return console.log(err);
-                                 });          
-                                 mkdirp('/public/product_images/product_images/'+product.id+'/gallery',function(err){
-                                    return console.log(err);
-                                });
-                                mkdirp('/public/product_images/'+product.id+'/gallery/thumbs',function(err){
-                                    return console.log(err);
-                                });
+                                 mkdirp('C:/users/gaffer/pictures/gaffercart/admin/src/assets/public/product_images/'+product.id);
+                                 mkdirp('C:/users/gaffer/pictures/gaffercart/client/src/assets/public/product_images/'+product.id);
+                                     
+                                 mkdirp('C:/users/gaffer/pictures/gaffercart/admin/src/assets/public/product_images/'+product.id+'/gallery');
+                                 mkdirp('C:/users/gaffer/pictures/gaffercart/client/src/assets/public/product_images/'+product.id+'/gallery');
+                                   
+                                mkdirp('C:/users/gaffer/pictures/gaffercart/admin/src/assets/public/product_images/'+product.id+'/gallery/thumbs');
+                                mkdirp('C:/users/gaffer/pictures/gaffercart/client/src/assets/public/product_images/'+product.id+'/gallery/thumbs');                                   
+                                   
+
                                 if (imageFile != "") {
                                     var productImage = req.files.image;
-                                    var path = '/public/product_images/product_images/' + product.id + '/' + imageFile;
-            
+                                    var path = 'C:/users/gaffer/pictures/gaffercart/admin/src/assets/public/product_images' + '/' + product.id + '/' + imageFile;
+                                    var path2 = 'C:/users/gaffer/pictures/gaffercart/client/src/assets/public/product_images' + '/' + product.id + '/' + imageFile;
+                                    
                                     productImage.mv(path, function (err) {
+                                        return console.log(err);
+                                    });
+                                    productImage.mv(path2, function (err) {
                                         return console.log(err);
                                     });
                                 }

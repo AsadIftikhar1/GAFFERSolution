@@ -1,3 +1,34 @@
-<p>
-  products works!
-</p>
+
+<div class="row">
+  <div class="col-3">
+    <div class="list-group sticky-top">
+      <a *ngFor="let c of data2"
+      [routerLink]="['/products/category/', c.title]"
+      class="list-group-item list-group-item-action">
+        {{c.title}}
+      </a>
+    </div>
+  </div>  
+  <div class="col-md-2">
+      <div class="row">
+          <ng-container *ngFor="let product of data let i = index">
+          <div class="col">
+            
+              <div class="card" style="width: 18rem;">
+                  <img class="card-img-top" src = "/assets/public/product_images/{{product.id}}/{{product.images}}">
+                <div class="card-body">
+                  <h5 class="card-title">{{product.title}}</h5>
+                  <p class="card-text">{{product.price |  currency:"GBP":""}}</p>
+                </div>
+                <div class="card-footer">
+                    <button  class="btn btn-primary btn-block" ><a href="http://localhost:3000/products/{{product.category}}/{{product.slug}}">Add to Cart</a></button>
+                </div>
+              </div>
+              
+                </div>
+                 <div *ngIf="(i+1) % 2 === 0" class="w-100"></div>        
+          </ng-container>
+        </div> 
+  </div>
+</div>
+

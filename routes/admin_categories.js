@@ -78,39 +78,26 @@
                             })
                         }
                     });
-            //                 /*
-            //                 *
-            //                 *    POST REORDER PAGES AGAIN COPY THE GET METHOD 
-            //                 */
-                    
-                    
-            //         router.get('/reorder-pages',function(req,res){
+          
 
-            //             var ids=req.body.id['id[]'];
-            //             var count=0;
+              //Get single Category
+                    router.get('/details-category/:id', function (req, res) {
 
                         
-            //             for(var i=0; i<ids.length; i++)
-            //             {
-            //                 var id=ids[i];
-            //                 count++;
-            //             (function(count){
-            //                 models.page.find({
-            //                     where:{
-            //                         id:req.params.id
-            //                     }
-            //                 })
-            //                     .then(function(page){
-            //                         page.sorting=count;
-            //                     })
-            //                     .catch(function(err){
-            //                         console.log(err);
-            //                     })
-            //                 })(count);
-            //                 }
-            //             });
-                    
-
+                        models.Category.findOne({
+                            where: {
+                                id:req.params.id
+                            }         
+                        })
+                   
+                        .then(function(category){
+                            res.json(category);
+                        })
+                            .catch(function(err){
+                            console.log(err);
+                            
+                    })
+                });
                         /*
                         * GET Editing Category
                         */

@@ -1,0 +1,5 @@
+<a *ngFor="let p of pages"
+[routerLink]="['/pages/', p.title ]"
+class="list-group-item list-group-item-action">
+  {{p.title}}
+</a>

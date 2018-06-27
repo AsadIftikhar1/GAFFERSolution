@@ -43,7 +43,6 @@ export class PageService {
 
   getPages(): Observable<any> {
 
-    // const url = `${apiUrl}/${id}`;
     return this.http.get(apiUrl, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));

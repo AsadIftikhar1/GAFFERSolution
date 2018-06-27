@@ -1,0 +1,20 @@
+<div class="button-row">
+  <a mat-raised-button color="primary" [routerLink]="['/admin/categories']"><mat-icon>list</mat-icon></a>
+</div>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title><h2>{{categories.title}}</h2></mat-card-title>
+    </mat-card-header>
+  <mat-card-content>
+    <dl>
+      <dt>Title:</dt>
+      <dd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ categories.title }}</dd>
+      <dt>Slug:</dt>
+      <dd>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ categories.slug }}</dd>
+      
+    </dl>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-raised-button color="warn" (click)="deleteCategory(categories.id)"><mat-icon>delete</mat-icon></a>
+  </mat-card-actions>
+</mat-card>
