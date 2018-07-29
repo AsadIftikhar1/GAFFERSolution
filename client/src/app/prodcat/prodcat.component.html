@@ -1,42 +1,42 @@
 
 
-    
 <div class="row">
        <div class="col-3">
             <div class="button-row">
                     <a mat-raised-button color="primary" [routerLink]="['/products']"><mat-icon><p>Back</p></mat-icon></a>
                   </div>
-        
-      <div class="list-group list-group-item-action">
-     
-        <a *ngFor="let c of data2"
-        [routerLink]="['/products/category/', c.title]"
-        class="list-group-item list-group-item-action">
-          {{c.title}}
+                  </div>
+                  </div>
+
+      <div class="cat">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a *ngFor="let c of data2" mat-raised-button color="primary" [routerLink]="['/products/category/', c.title]" (click)="refreshPage()" style="padding-left:10px;"> 
+              {{c.title}} 
         </a>
-      </div>
-    </div>  
-    <div class="col">
-        <div class="row">
-            <ng-container *ngFor="let product of prodcat,data let i = index">
-            <div class="col">
-              
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src = "/assets/public/product_images/{{product.id}}/{{product.images}}">
-                  <div class="card-body">
-                    <h5 class="card-title">{{product.title}}</h5>
-                    <p class="card-text">{{product.price |  currency:"GBP":""}}</p>
-                  </div>
-                  <div class="card-footer">
-                        <a href="#" class="btn btn-primary btn-block">Add to Cart</a>
-                    </div>
-                </div>
-                
-                  </div>
-                   <div *ngIf="(i+1) % 2 === 0" class="w-100"></div>        
-            </ng-container>
-          </div> 
-    </div>
+        </div>
+    
+
+<div class="flex-container">
+  <ng-container *ngFor="let product of prodcat,data let i = index">
+
+      <div>
+         <div class="card">
+             <img class="card-img-top" src = "/assets/public/product_images/{{product.id}}/{{product.images}}">
+         <div class="card-body">
+             <h5 class="card-title">{{product.title}}</h5>
+             <p class="card-text">{{product.price |  currency:"GBP":""}}</p>
+          </div>
+           <div class="card-footer" style="background-color: wheat;">
+               <button  class="btn btn-primary btn-block" style="background-color: wheat;" ><a href="http://localhost:3000/products/{{product.category}}/{{product.slug}}" style=" text-decoration: none;"><i class="material-icons" style="margin-bottom: -16px;">
+                 shopping_cart
+                 </i>&nbsp;&nbsp;Add to Cart</a></button>
+         </div>
   </div>
-  
-  
+  </div>
+
+         
+   
+   <!-- </div> -->
+ </ng-container>
+</div>  
+
+

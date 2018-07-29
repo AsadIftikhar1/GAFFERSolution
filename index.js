@@ -12,14 +12,14 @@ var fileUpload=require('express-fileupload');
 var models=require('./models');
 var passport=require('passport');
 var cors=require('cors');
-var env = require('dotenv').load();
 var bCrypt=require('bcrypt-nodejs');
 var router = express.Router();
 const exphbs=require('express-handlebars');
 const xoauth2=require('xoauth2');
 const paypal=require('paypal-rest-sdk');
-// var config=JSON.parse(fs.readFileSync("config.json"));
-
+const stripe=require('stripe')('sk_test_INJvZWiP2ctnB2tzWvUwB1jo');
+var session=require('express-session');
+var env = require('dotenv').load();
 
 paypal.configure({
   'mode':'sandbox',
@@ -38,7 +38,7 @@ var app=express();  //init app
 
 //For Cross Origins and for Saving cookies
 app.use(cors({
-  origin:['http://localhost:4200','http://127.0.0.1:4200'],
+  origin:['http://localhost:4200','http://localhost:4410','http://127.0.0.1:4200','https://example.com/MaterialIcons-Regular.ttf','https://example.com/MaterialIcons-Regular.woff','https://example.com/MaterialIcons-Regular.woff2'],
   credentials:true
 }))
 
@@ -53,6 +53,7 @@ app.set('view engine','ejs');
 app.engine('html',require('ejs').renderFile);
 
 //Set public folder
+//app.use(express.static(`${__dirname}/public`));
 
 app.use(express.static(path.join(__dirname,'public')));
 app.use(express.static(__dirname + '/public'));
@@ -113,8 +114,8 @@ app.use(bodyParser.json());
 app.use(session({
   name:'GafferCart',
   secret: 'Gaffer',
-  // resave: true,                //It was not abling to send flash messages because it uses session thats why ture
-  saveUninitialized: true,
+  resave: false,                //It was not abling to send flash messages because it uses session thats why ture
+  saveUninitialized: false,     
   cookie: { 
     maxAge:3600000,
     httpOnly:false,
@@ -122,7 +123,8 @@ app.use(session({
   }
 }));
 
-app.get('/',(req,res)=>{
+//Getting Contant page
+app.get('/contact',(req,res)=>{
   res.render('contact');
   })
   
@@ -172,7 +174,7 @@ app.get('/',(req,res)=>{
       // }
       // console.log('Message sent');
       // Preview only available when sending through an Ethereal account
-      res.render(contact);
+     res.send('mail sent');
       // console.log(info);
       
 
@@ -279,18 +281,27 @@ function normalizePort(val) { /* ... */ }
 function onError(error) { /* ... */ }
 function onListening() { /* ... */ }
 
-//Passport config
-require('./config/passport')(passport)
-//Passport MiddleWare
-app.use(passport.initialize());
-app.use(passport.session());
+//Require Passport config file Here
 
+require('./config/passport')(passport);
+
+//Passport MiddleWare
+
+app.use(passport.initialize());
+app.use(passport.session());  //Presistent Login sessions
+
+// app.all('/*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   next();
+// });
 //Setting Global Variables
+
 app.get('*',function(req,res,next){
   res.locals.cart=req.session.cart;
   res.locals.user=req.user||null;
   next();
  })
+
 
 //Set Routes
 var pages=require('./routes/pages.js');

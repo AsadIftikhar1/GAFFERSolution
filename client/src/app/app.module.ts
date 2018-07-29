@@ -13,11 +13,9 @@ import { UserhomeComponent } from './userhome/userhome.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {UserService} from './user.service';
 import { HttpClientModule } from '@angular/common/http';
-import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
-import { HomeComponent } from './home/home.component';
+// import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { ProductsComponent } from './products/products.component';
-import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
-
+// import {MaterialModule} from '@angular/material';
 
 //Defining routes
 const appRoutes:Routes=[
@@ -39,11 +37,12 @@ import {
   MatIconModule,
   MatButtonModule,
   MatCardModule,
-  MatFormFieldModule } from "@angular/material";
+  MatFormFieldModule, MatToolbarModule, MatSidenavModule, MatListModule } from "@angular/material";
 import { ProdcatComponent } from './prodcat/prodcat.component';
-import { CartComponent } from './cart/cart.component';
 import { PageComponent } from './page/page.component';
 import { PageDetailComponent } from './page-detail/page-detail.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -51,14 +50,12 @@ import { PageDetailComponent } from './page-detail/page-detail.component';
     LoginComponent,
     RegisterComponent,
     UserhomeComponent,
-    BsNavbarComponent,
-    HomeComponent,
+    // BsNavbarComponent,
     ProductsComponent,
-    ShoppingCartComponent,
     ProdcatComponent,
-    CartComponent,
     PageComponent,
-    PageDetailComponent
+    PageDetailComponent,
+    MainNavComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -82,15 +79,17 @@ import { PageDetailComponent } from './page-detail/page-detail.component';
     RouterModule.forRoot([
       { path:'',component:ProductsComponent},
       { path:'products',component:ProductsComponent},
-      { path:'shopping-cart',component:ShoppingCartComponent},
       { path:'login',component:LoginComponent},
-      {path:'register',component:RegisterComponent},
-      {path:'products/category/:title',component:ProdcatComponent},
-      {path:'cart/add/:title',component:CartComponent},
-      {path:'pages',component:PageComponent},
-      {path:'pages/:title',component:PageDetailComponent}
+      { path:'register',component:RegisterComponent},
+      { path:'products/category/:title',component:ProdcatComponent},
+      { path:'pages',component:PageComponent},
+      { path:'pages/:title',component:PageDetailComponent}
 
-    ])
+    ]),
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

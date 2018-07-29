@@ -15,6 +15,7 @@
     </dl>
   </mat-card-content>
   <mat-card-actions>
+    <a href="http://localhost:3000/admin/categories/edit-category/{{categories.id}}" mat-raised-button color="primary"><mat-icon>edit</mat-icon></a>    
     <a mat-raised-button color="warn" (click)="deleteCategory(categories.id)"><mat-icon>delete</mat-icon></a>
   </mat-card-actions>
 </mat-card>

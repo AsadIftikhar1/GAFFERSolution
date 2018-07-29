@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CategoryService} from '../category.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-category-detail',
@@ -12,7 +14,7 @@ export class CategoryDetailComponent implements OnInit {
 
   categories={};
 
-  constructor(private route:ActivatedRoute,private category:CategoryService, private router: Router) { }
+  constructor(private route:ActivatedRoute,private category:CategoryService, private router: Router,private _toastr:ToastrService) { }
 
   ngOnInit() {
     this.getCategoryDetails(this.route.snapshot.params['id']);
@@ -32,10 +34,18 @@ export class CategoryDetailComponent implements OnInit {
     this.category.deleteCategory(id)
       .subscribe(res => {
           this.router.navigate(['/admin/categories']);
+          this._toastr.success('Category has been Deleted');
+
         }, (err) => {
+          this.handleError(err);
           console.log(err);
         }
       );
+  }
+  
+  private handleError(err){
+    console.log(err);
+    this._toastr.error('Could not process request');
   }
 
 }

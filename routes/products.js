@@ -4,7 +4,8 @@ var fs=require('fs-extra');
 var models=require('../models');
 var Category= require('../models/category');
 var Product= require('../models/product');
-
+var auth=require('../config/auth');
+var isUser=auth.isUser;
 
 
 //TO SHOW ALL of the PRODUCT

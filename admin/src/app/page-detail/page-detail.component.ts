@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PageService} from '../page.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-page-detail',
@@ -12,7 +13,10 @@ export class PageDetailComponent implements OnInit {
 
   pages={};
 
-  constructor(private route:ActivatedRoute,private page:PageService, private router: Router) { }
+  constructor(private route:ActivatedRoute,
+    private page:PageService, 
+    private router: Router,
+    private _toastr:ToastrService) { }
 
   ngOnInit() {
     this.getPageDetails(this.route.snapshot.params['id']);
@@ -25,6 +29,7 @@ export class PageDetailComponent implements OnInit {
           console.log(data);
           this.pages = data;
         }, err => {
+          this.handleError(err);
           console.log(err);
         });
     }
@@ -32,9 +37,21 @@ export class PageDetailComponent implements OnInit {
       this.page.deletePage(id)
         .subscribe(res => {
             this.router.navigate(['/admin/pages']);
+            this._toastr.success('Page has been Deleted');
           }, (err) => {
+            this.handleError(err);
             console.log(err);
+
           }
         );
     }
+    private handleError(err){
+      console.log(err);
+      this._toastr.error('Could not process request');
+    }
+
+    // private handleError(err){
+    //   console.log(err);
+    //   this._toastr.error('Could not process request');
+    // }
 }

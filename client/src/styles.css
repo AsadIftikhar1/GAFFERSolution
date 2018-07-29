@@ -2,4 +2,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-/* body { padding-top: 80px; } */
+body{
+  /* background-image: url('http://img15.nnm.me/9/4/a/9/a/7625e5971da06f79bfa6b50f199.jpg'); */
+  background-color: antiquewhite;
+  /* overflow-bottom: hidden; */
+  width:100%;
+  /* overflow: hidden; */
+}
+a.active{
+  color:red;
+}

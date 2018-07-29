@@ -6,7 +6,8 @@
             var mkdirp=require('mkdirp');
             var fs=require('fs-extra');
             var resizeImg=require('resize-img');
-
+            var auth=require('../config/auth');
+            var isUser=auth.isUser;
 
               // Get Product model
             var Product = require('../models/product');
@@ -124,23 +125,32 @@
                                 
                                  mkdirp('C:/users/gaffer/pictures/gaffercart/admin/src/assets/public/product_images/'+product.id);
                                  mkdirp('C:/users/gaffer/pictures/gaffercart/client/src/assets/public/product_images/'+product.id);
-                                     
+                                 mkdirp('C:/Users/Gaffer/Pictures/GafferCart/public/product_images/' +product.id);
+
                                  mkdirp('C:/users/gaffer/pictures/gaffercart/admin/src/assets/public/product_images/'+product.id+'/gallery');
                                  mkdirp('C:/users/gaffer/pictures/gaffercart/client/src/assets/public/product_images/'+product.id+'/gallery');
+                                 mkdirp('C:/Users/Gaffer/Pictures/GafferCart/public/product_images/' +product.id + '/gallery');
+
                                    
                                 mkdirp('C:/users/gaffer/pictures/gaffercart/admin/src/assets/public/product_images/'+product.id+'/gallery/thumbs');
                                 mkdirp('C:/users/gaffer/pictures/gaffercart/client/src/assets/public/product_images/'+product.id+'/gallery/thumbs');                                   
+                                 mkdirp('C:/Users/Gaffer/Pictures/GafferCart/public/product_images/' +product.id + '/gallery/thumbs');
                                    
 
                                 if (imageFile != "") {
                                     var productImage = req.files.image;
-                                    var path = 'C:/users/gaffer/pictures/gaffercart/admin/src/assets/public/product_images' + '/' + product.id + '/' + imageFile;
+                                    var path =  'C:/users/gaffer/pictures/gaffercart/admin/src/assets/public/product_images' + '/' + product.id + '/' + imageFile;
                                     var path2 = 'C:/users/gaffer/pictures/gaffercart/client/src/assets/public/product_images' + '/' + product.id + '/' + imageFile;
+                                    var path3 = 'C:/Users/Gaffer/Pictures/GafferCart/public/product_images/' +product.id + '/' +imageFile;
+
                                     
                                     productImage.mv(path, function (err) {
                                         return console.log(err);
                                     });
                                     productImage.mv(path2, function (err) {
+                                        return console.log(err);
+                                    });
+                                    productImage.mv(path3, function (err) {
                                         return console.log(err);
                                     });
                                 }

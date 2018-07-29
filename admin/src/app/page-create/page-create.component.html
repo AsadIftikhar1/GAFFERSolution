@@ -1,7 +1,7 @@
 <div class="button-row">
   <a mat-raised-button color="primary" [routerLink]="['/admin/pages']"><mat-icon>list</mat-icon></a>
 </div>
-<form [formGroup]="pageForm" (ngSubmit)="onFormSubmit(pageForm.value)">
+<form class="form" [formGroup]="pageForm" (ngSubmit)="onFormSubmit(pageForm.value)">
   <mat-form-field class="example-full-width">
     <input matInput placeholder="Title" formControlName="title"
            [errorStateMatcher]="matcher">

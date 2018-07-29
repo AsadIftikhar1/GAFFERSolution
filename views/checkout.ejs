@@ -39,41 +39,75 @@
     </tr>
    
     <tr>
-        <td colspan="5" align="right">
+        <td colspan="5" align="right" style="background-color: wheat;">
             <a class="clearcart btn btn-danger" href="/cart/clear">Clear cart</a>
-        </td>
-        <td colspan="5" align="right">
-            <a class="btn btn-primary buynow" href="#">Buy now</a>
         </td>
     </tr>
     
 </table>
  
-    <div class="contact" style="padding: 70px;">
+    <div style="display: none;">
+        
   <form method="post" action="/cart/checkout/pay">
     <% cart.forEach(function(pee){ %>
           <p>
-            <label>Name</label>
-            <input type="text" name="title" value="<%= pee.title %>">
+            <label style="display: none;">Name</label>
+            <input type="text" name="title" value="<%= pee.title %>" readonly style="display: none;">
           </p>
           <p>
-                <label>Quantity</label>
-                <input type="text" name="qty" value="<%= pee.qty %>">
+                <label style="display: none;">Quantity</label>
+                <input type="text" name="qty" value="<%= pee.qty %>" readonly style="display: none;">
               </p>
           <p>
-            <label>Price</label>
-            <input type="text" name="price" value="<%= parseFloat(total).toFixed(2) %>">
+            <label style="display: none;">Price</label>
+            <input type="text" name="price" value="<%= parseFloat(total).toFixed(2) %>" readonly style="display: none;">
           </p>
 
-          <% }); %>
-     
-          <p class="full">
-            <button type="submit">Submit</button>
-          </p>
+        </div>
+      
+          <!-- <p class="full"> -->
+            <button type="submit" class="btn btn-info" style="position: absolute; top:230px;">Pay with Paypal for <%= parseFloat(total).toFixed(2) %></button>
+          <!-- </p> -->
  
 </form>
 
+<div style="background-color: wheat;">
+        
+        <form method="post" action="/cart/checkout/stripe">
+        <p>
+            <label style="display: none;">Name</label>
+            <input type="text" name="title"  value="<%= pee.title %>" readonly style="display: none;">
+          </p>
+          <p>
+                <label style="display: none;">Quantity</label>
+                <input type="text" name="qty" value="<%= pee.qty %>" readonly style="display: none;">
+              </p>
+          <p>
+            <label style="display: none;">Price</label>
+            <input type="text" name="price" value="<%= total %>" readonly style="display: none;">
+          </p>
+              <!-- <form action="your-server-side-code" method="POST"> -->
+  <script
+    src="https://checkout.stripe.com/checkout.js" 
+    class="stripe-button"
+    data-key="pk_test_kzEtBzSaYTdH861psURrqZR1"
+    data-amount="<%= total %>"
+    data-name="Gaffer"
+    data-description="Widget"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto">
+  </script>
+  <script>
+      //Hide Default Stripe Button
 
+  document.getElementsByClassName('stripe-button-el')[0]
+  .style.display='none';
+  </script>
+  <!-- <button type="submit" class="btn btn-info" style="position:absolute; top:230px; left:280px; ">Pay with Stripe for <%= parseFloat(total).toFixed(2) %></button> -->
+</form>
+                <% }); %>
+           
+      </div>
 <% var num = 0; %>
 <% cart.forEach(function(p){ %>
     <% num++ %>

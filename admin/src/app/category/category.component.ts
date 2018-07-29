@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {CategoryService} from '../category.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-category',
@@ -16,7 +18,8 @@ export class CategoryComponent implements OnInit {
   dataSource = new CategoryDataSource(this.category);
 
 
-  constructor(private category:CategoryService) { }
+  constructor(private category:CategoryService,
+              private _toastr:ToastrService) { }
 
   ngOnInit() {
   }

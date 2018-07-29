@@ -1,0 +1,21 @@
+.title{
+    height:auto;
+    font-size: 35px;
+    color:maroon;
+    background-color:whitesmoke;
+    margin-top:25px;
+    padding: 7px;
+    width: 60%;
+
+}
+.content{
+    height:auto;
+    width: 150%;
+    font-size: 20px;
+    color:orange;
+    background-color:whitesmoke;
+    margin-top:25px;
+    padding: 9px;
+    
+
+}

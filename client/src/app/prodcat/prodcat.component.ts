@@ -10,6 +10,7 @@ import { of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 import { CATCH_ERROR_VAR } from '@angular/compiler/src/output/output_ast';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -28,7 +29,11 @@ export class ProdcatComponent implements OnInit {
   data2:any =[];
 
 
-  constructor(private route:ActivatedRoute,private product:ProdcatService, private router: Router,private http:Http) { }
+  constructor(private route:ActivatedRoute,
+    private product:ProdcatService, 
+    private router: Router,
+    private http:Http,
+    private location: Location) { }
 
   ngOnInit() {
     this.getProdcat(this.route.snapshot.params['title']);
@@ -66,5 +71,9 @@ this.getData().subscribe(data=>{
   console.log(data);
   this.data=data;
 })
+}
+
+refreshPage() {
+  location.reload()
 }
 }

@@ -1,0 +1,42 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav style="background-color:#673ab7;"
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar color="primary"><mat-icon>list</mat-icon>
+    </mat-toolbar>
+    <mat-nav-list>
+      <pages></pages>
+      
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">
+        </mat-icon>
+      </button>
+      <span><i class="material-icons">
+          shopping_cart
+          </i>&nbsp;<a [routerLink]="['/pages/home']" style="text-decoration: none; color:whitesmoke; font-size:25.5px; ">            GafferCart</a>
+        <a mat-raised-button color="primary" [routerLink]="['/register']"style=" position: relative;
+        left: 650px; text-decoration: none;"><i class="material-icons" style="margin-left:4px;">
+            verified_user
+            </i>&nbsp;&nbsp;Register</a>
+        <a mat-raised-button color="primary" [routerLink]="['/login']"style=" position: relative;
+        left: 410px; text-decoration: none;"><i class="material-icons" style="margin-left:4px;">
+            lock_open
+            </i>&nbsp;&nbsp;Sign In</a>
+      </span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>

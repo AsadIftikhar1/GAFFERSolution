@@ -2,8 +2,10 @@
     display: flex;
     flex-direction: column;
     max-height: 500px;
-    min-width: 300px;
+   width: 82.75%;
     overflow: auto;
+    margin-left: 203px;
+    margin-top: 40px;
   }
   
   .isbn-col {
@@ -12,7 +14,8 @@
   }
   
   .button-row {
-    margin: 10px 0;
+    margin-left: 203px;
+    margin-top: 40px;
   }
   .img{
       margin-top:10px;

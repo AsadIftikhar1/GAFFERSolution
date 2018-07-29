@@ -4,6 +4,9 @@ var User = require('../models/user');
 var models=require('../models');
 var passport=require('passport');
 var bcrypt=require('bcryptjs');
+var passport=require('passport');
+var session=require('express-session');
+var expressValidator=require('express-validator');
 
 
 //Get Register
@@ -42,7 +45,7 @@ router.post('/register',function(req,res){
         };
   
     //  res.json(user);
-    bcrypt.genSalt(10,function(err,salt){
+      bcrypt.genSalt(10,function(err,salt){
       bcrypt.hash(user.password,salt,function(err,hash){
         
         user.password=hash;
@@ -54,7 +57,7 @@ router.post('/register',function(req,res){
         
      
           console.log('You are now registered');
-          res.redirect('/admin/pages')
+          res.send('You have been Registered');
         
       
     })
@@ -68,24 +71,33 @@ router.post('/register',function(req,res){
 * Get Login
 */
 router.get('/login',function(req,res){
-  if(res.locals.user) res.redirect('/');
-
+  if(res.locals.user)
+   {
+    res.redirect('/');
+  }
   res.render('login',{
-    title:'log in'
-  })
-
-})
+    title:'Log In'
+  });
+});
 
 /*
-*Post Login
+*Post Login...
 */
 router.post('/login',function(req,res,next){
  
-  passport.authenticate('local',{
-    successRedirect:'/',
-    failureRedirect:'/admin/pages',
-    failureFlash:true
-  })(req,res,next);
+  passport.authenticate('local',function(err,user,info){
+    if(err){return res.status(501).json(err);}
+    if(!user){return res.status(501).json(info);}
+    req.login(user,function(err){
+    if(err){return res.status(501).json(err);}
+    return res.status(200).json({message:'Login Success'});
+    })
+  })(req, res, next);
+  // passport.authenticate('local',{
+  //   successRedirect:'/admin/pages/edit-page/11',
+  //   failureRedirect:'/users/login',
+  //   failureFlash:false
+  // })(req,res,next);
 
 })
 

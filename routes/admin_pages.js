@@ -266,9 +266,9 @@ router.post('/reorder-pages', function (req, res) {
                         models.Page.update(values,{...condition,...options})  //ES6 sprade operator       
 
                             .then((page) => {
-                                res.json(page);
-                                // req.flash('success', 'Page Updated!');
-                                // res.redirect('/admin/pages');
+                                
+                                req.flash('success', 'Page Updated!');
+                                res.redirect('http://localhost:4200/admin/pages');
                             })
                             .catch(function(err){
                                 console.log(err);

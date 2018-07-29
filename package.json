@@ -44,6 +44,7 @@
     "sequelize-cli": "^4.0.0",
     "sequelize-express-findbyid": "^1.0.7",
     "sequelize-handlers": "^1.0.6",
+    "stripe": "^6.1.1",
     "xoauth2": "^1.2.0"
   },
   "devDependencies": {

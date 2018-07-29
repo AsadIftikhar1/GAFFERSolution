@@ -1,40 +1,77 @@
-<div class="row" style="margin-top:40px; padding:20px; background-color:#eff0f2;border-radius:15px;
--webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
--moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);">
-  <!-- <div class="col-sm-12" style="text-align:center;">
-    Register
-  </div> -->
+<div class="from">
 
-  <!-- formcontrolname is used for Binding every field in reactive forms -->
-  <!-- and formGroup name is taking that value from its ts file -->
+  <h1 style="font-size: 35px; padding-left: 100px; padding-top: 47px; "><b><i class="material-icons md-48">
+      add_shopping_cart
+      </i>&nbsp;&nbsp;&nbsp; GafferCart</b></h1>
+<form class="form" [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
 
-  <div class="col-sm-12">
-    <form [formGroup]="registerForm">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted"></small>
-      </div>
-      <div class="form-group">
-          <label for="exampleInputUsername">Username</label>
-          <input formControlName="username" type="text" class="form-control" id="exampleInputUsername" aria-describedby="userHelp" placeholder="username">
-          <small id="userHelp" class="form-text text-muted"></small>
-      </div>
-      <div class="form-group">
-        <label for="passwordInput">Password</label>
-        <input formControlName="password" type="password" class="form-control" id="passwordInput" aria-describedby="passHelp" placeholder="password">
-        <small id="passHelp" class="form-text text-muted"></small>
-      </div>
-      <div class="form-group">
-          <label for="CpasswordInput">Confirm Password</label>
-          <input formControlName="cpass" type="password" class="form-control" id="CpasswordInput" aria-describedby="CpassHelp" placeholder="password">
-          <small id="CpassHelp" class="form-text text-muted"></small>
-        </div>
-      <div class="form-group" style="text-align:center;">
-          <button type="button" class="btn btn-dark" (click)="register()">Register</button>
-          <button type="button" class="btn btn-secondary" (click)="moveToLogin()">Log in</button>
-      </div>
-    </form>
-  </div>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter Name" formControlName="name"
+           [errorStateMatcher]="matcher">
+    <mat-error>
+        <span *ngIf="registerForm.get('name').hasError('minlength')">Name should be 4 to 10 characters</span>
+
+<br>
+<br>
+      <span *ngIf="!registerForm.get('name').valid && registerForm.get('name').touched">Please enter Name</span>
+
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter Email" formControlName="email"
+           [errorStateMatcher]="matcher" type="email">
+    <mat-error>
+      <span *ngIf="!registerForm.get('email').valid && registerForm.get('email').touched">Please enter Email</span>
+      <br><br>
+      <span *ngIf="registerForm.get('email').hasError('minlength')">Email should be atleast 13 characters</span>
+
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter Username"  formControlName="username"
+           [errorStateMatcher]="matcher" type="text">
+    <mat-error>
+      <span *ngIf="!registerForm.get('username').valid && registerForm.get('username').touched">Please enter Username</span>
+      <br>
+      <br>
+      <span *ngIf="registerForm.get('username').hasError('minlength')">Username should be atleast 14 characters</span>
+      
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter Password" formControlName="password" 
+           [errorStateMatcher]="matcher" type="password">
+    <mat-error>
+      <span *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched">Please enter Password</span>
+      <br>
+      <br>
+      <span *ngIf="registerForm.get('password').hasError('minlength')">Password should be atleast 8 characters</span>  
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Confirm password" formControlName="cpass"
+           [errorStateMatcher]="matcher" type="password">
+    <mat-error>
+      <span *ngIf="!registerForm.get('cpass').valid && registerForm.get('cpass').touched">Please Confirm Password</span>
+      <br>
+      <span *ngIf="registerForm.get('cpass').hasError('minlength')">Confirm Password should be same</span>
+    </mat-error>
+  </mat-form-field>
+
+<br>
+  <span style="color:red;">**if already a User then <a [routerLink]="['/login']" style="text-decoration: none; color:royalblue;">Login</a> </span>
+  
+  <div class="button-row">
+      <br><button type="submit" [disabled]="!registerForm.valid" mat-raised-button color="primary" ><i class="material-icons" style="margin-left:4px;">
+        verified_user
+        </i>&nbsp;&nbsp;Register</button>
+  </div>  
+</form>
 </div>

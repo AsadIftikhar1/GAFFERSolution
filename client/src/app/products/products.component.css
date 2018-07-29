@@ -1,9 +1,9 @@
 .example-container {
     display: flex;
     flex-direction: column;
-    max-height: 500px;
+    /* max-height: 500px;
     min-width: 300px;
-    overflow: auto;
+    overflow: auto; */
   }
   
   .isbn-col {
@@ -18,19 +18,115 @@
   .img{
     margin-top:10px;
     margin-bottom: 30px;
-    height:80px;
 }
 .card{
   margin-bottom: 30px;
 }
 .card-footer{
   padding:0px;
+  background-color: wheat;
+  margin-bottom: -50px;
+
 }
 .sticky-top{
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
+.card-body{
+  background-color: wheat;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 130%;
+    position: absolute;
+    top: 70px;
+    right: 40;
+  /* background-color: DodgerBlue; */
+}
 
+.flex-container > div {
+  background-color: #f1f1f1;
+  width: 30%;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+}
+.cat{
+  /* width:10%; */
+  margin-left: 0px;
+  margin-top: 14px;
+  /* margin-right:100px; */
+  /* padding-right: 60px; */
+}
+.cat > a{
+  margin-left:10px;
+  text-decoration: none;
+} 
 
-  
-  
+/*Container*/
+.cardslider .wrapper
+{
+  position: relative;
+}
+.cards_container
+{
+  box-sizing: border-box;
+  width:100%;
+  height: 300px;
+  margin: 0 auto;
+
+  background: #ececec;
+}
+.cards_container .item
+{
+  height: 300px;
+  display: none;
+}
+.cards_container .item.active
+{
+  display: block;
+  padding: 20px;
+}
+/*Button*/
+.action_btns
+{
+  position: absolute;
+  top:1000px;
+  width: 100%;
+}
+.action_btns .btn
+{
+  width:50px;
+  height:50px;
+  padding: 0px;
+  font-size: 50px;
+  color:#0257d8;
+  margin-right:60px;
+}
+.action_btns .btn.btn_prev
+{
+  float:left;
+}
+
+.action_btns .btn.btn_next
+{
+  float:right;
+}
+/* Counter */
+.count_slide
+{
+  width:140px;
+  background: #0275d8;
+  color:#fff;
+  text-align: center;
+  padding: 5px;
+  margin-top:5px;
+  float:right;
+}
+.count_slide span
+{
+  font-weight:bold;
+
+}

@@ -1,13 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-// import {FormsModule} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { PageComponent } from './page/page.component';
 import { PageDetailComponent } from './page-detail/page-detail.component';
 import { PageCreateComponent } from './page-create/page-create.component';
-import { PageEditComponent } from './page-edit/page-edit.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -15,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Defining routes
 const appRoutes:Routes=[
 {
-  path:'admin/pages',
+  path:'admin/pages',    //No arrow comes at the beggining
   component:PageComponent,
   data:{title:'Pages List'}
 },
@@ -29,11 +27,7 @@ const appRoutes:Routes=[
   component:PageCreateComponent,
   data:{title:'Create Pages'}
 },
-  {
-    path:'admin/pages/edit-page/:id',
-    component:PageEditComponent,
-    data:{title:'Update Pages'}
-  },
+
   { path:'admin/products',component:ProductComponent },
   { path:'admin/orders',component:AdminOrdersComponent },
   { path:'admin/products/new',component:ProductFormComponent },
@@ -56,7 +50,7 @@ import {
   MatIconModule,
   MatButtonModule,
   MatCardModule,
-  MatFormFieldModule } from "@angular/material";
+  MatFormFieldModule, MatToolbarModule, MatSidenavModule, MatListModule } from "@angular/material";
 // import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { ProductFormComponent } from './product-form/product-form.component';
@@ -66,6 +60,14 @@ import { ProductComponent } from './product/product.component';
 import { CategoryComponent } from './category/category.component';
 import { CategoryCreateComponent } from './category-create/category-create.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+import { FooterComponent } from './footer/footer.component';
+// import { ShahzarComponentComponent } from './shahzar-component/shahzar-component.component';
 
 @NgModule({
   declarations: [
@@ -73,13 +75,15 @@ import { CategoryDetailComponent } from './category-detail/category-detail.compo
     PageComponent,
     PageDetailComponent,
     PageCreateComponent,
-    PageEditComponent,
     AdminOrdersComponent,
     ProductFormComponent,
     ProductComponent,
     CategoryComponent,
     CategoryCreateComponent,
-    CategoryDetailComponent
+    CategoryDetailComponent,
+    MainNavComponent,
+    FooterComponent,
+    // ShahzarComponentComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -96,7 +100,18 @@ import { CategoryDetailComponent } from './category-detail/category-detail.compo
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+    timeOut: 10000,
+    positionClass: 'toast-bottom-right',
+    preventDuplicates: false,
+    }), // ToastrModule added
     
   ],
   

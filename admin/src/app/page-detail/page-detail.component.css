@@ -1,7 +1,11 @@
 .example-card {
     max-width: 500px;
+    margin-left: 220px;
+    margin-top: 40px;
+    /* background-color: aqua; */
   }
   
   .button-row {
-    margin: 10px 0;
+    margin-left: 220px;
+    margin-top: 40px;
   }

@@ -10,11 +10,12 @@ import { of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 import { CATCH_ERROR_VAR } from '@angular/compiler/src/output/output_ast';
+import { Location } from '@angular/common';
 
 
 
 @Component({
-  selector: 'app-page',
+  selector: 'pages',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.css']
 })
@@ -22,8 +23,12 @@ export class PageComponent implements OnInit {
 
   private apiUrl = "http://localhost:3000/admin/pages";  
 
-  pages={};
-  constructor(private route:ActivatedRoute,private page:PageService, private router: Router,private http:Http) { }
+  pages=[];
+  constructor(private route:ActivatedRoute,
+    private page:PageService, 
+    private router: Router,
+    private http:Http,
+    private location: Location) { }
 
   ngOnInit() {
     this.getPages();
@@ -39,4 +44,7 @@ export class PageComponent implements OnInit {
       this.pages=pages;
     })
     }
+    refreshPage() {
+    location.reload()
+  }
 }

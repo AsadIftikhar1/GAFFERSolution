@@ -1,28 +1,45 @@
-<div class="row" style="margin-top:40px; padding:20px; background-color:#eff0f2;border-radius:15px;
--webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
--moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);">
-  <div class="col-sm-12" style="text-align:center;">
-    Login
-  </div>
 
-  <div class="col-sm-12">
-    <form [formGroup]="loginForm">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted"></small>
-      </div>
-      <div class="form-group">
-        <label for="passwordInput">Password</label>
-        <input formControlName="password" type="password" class="form-control" id="passwordInput" aria-describedby="passHelp" placeholder="password">
-        <small id="passHelp" class="form-text text-muted"></small>
-      </div>
 
-      <div class="form-group" style="text-align:center;">
-          <button type="button" class="btn btn-dark" (click)="login()">Log in</button>
-          <button type="button" class="btn btn-secondary" (click)="moveToRegister()">Register</button>
-      </div>
-    </form>
-  </div>
+<div class="from">
+
+  <h1 style="font-size: 35px; padding-left: 100px; padding-top: 47px; "><b><i class="material-icons md-48">
+      add_shopping_cart
+      </i>&nbsp;&nbsp;&nbsp; GafferCart</b></h1><br>
+      <span style="color:red; margin-left: 180px;">**if not a User then <a [routerLink]="['/register']" style="text-decoration: none; color:royalblue;">SignUp</a> </span>
+  
+<form class="form" [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+  
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter Username"  formControlName="username"
+           [errorStateMatcher]="matcher" type="text">
+    <mat-error>
+      <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Please enter Username</span>
+      <br>
+      <br>
+      <span *ngIf="loginForm.get('username').hasError('minlength')">Username should be atleast 14 characters</span>
+      
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter Password" formControlName="password" 
+           [errorStateMatcher]="matcher" type="password">
+    <mat-error>
+      <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Please enter Password</span>
+      <br>
+      <br>
+      <span *ngIf="loginForm.get('password').hasError('minlength')">Password should be atleast 8 characters</span>  
+    </mat-error>
+  </mat-form-field>
+
+
+<br>
+<br>
+  <div class="button-row">
+    <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary" ><i class="material-icons" style="margin-left:4px;">
+        lock_open
+        </i>&nbsp;&nbsp;Login</button>
+  </div>  
+</form>
 </div>

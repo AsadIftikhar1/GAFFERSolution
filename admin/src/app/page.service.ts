@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
-import { CATCH_ERROR_VAR } from '@angular/compiler/src/output/output_ast';
+import { catchError, map } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
+
 const apiUrl = "http://localhost:3000/admin/pages";
 const apiUrl2 = "http://localhost:3000/admin/pages/details-page";
 const apiUrl3 = "http://localhost:3000/admin/pages/add-page";
@@ -17,9 +19,11 @@ const apiUrl5 = "http://localhost:3000/admin/pages/delete-page";
 @Injectable({
   providedIn: 'root'
 })
+
 export class PageService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private _toastr:ToastrService) { }
 
   private extractData(res: Response) {
     let body = res;
@@ -31,6 +35,7 @@ export class PageService {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
     } else {
+      this.handlEError(error);
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       console.error(
@@ -85,5 +90,9 @@ deletePage(id: string): Observable<{}> {
     .pipe(
       catchError(this.handleError)
     );
+}
+private handlEError(err){
+  console.log(err);
+  this._toastr.error('Cannot connect to server');
 }
 }

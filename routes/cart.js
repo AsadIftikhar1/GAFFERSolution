@@ -5,6 +5,7 @@ var expressValidator = require('express-validator');
 var models=require('../models');
 const paypal=require('paypal-rest-sdk');
 var bodyParser=require('body-parser');
+const stripe=require('stripe')('sk_test_INJvZWiP2ctnB2tzWvUwB1jo');
 
 
 
@@ -181,6 +182,27 @@ router.post('/checkout/pay',function(req,res){
     });
 })
 
-  
+  //STRIPE PAYMENT
+  router.post('/checkout/stripe',(req,res)=>{
+  var amount=req.body.price;
+  var description=req.body.title;
+  var qty=req.body.qty;
+
+//   console.log(req.body);
+  stripe.customers.create({
+    email:req.body.stripeEmail,
+    source:req.body.stripeToken
+  })
+  .then(customer => stripe.charges.create({
+      amount,
+      description,
+      currency:'USD',
+      customer:customer.id
+
+  }))
+.then(charge=>res.render('success'));
+  })
+
+
 //Exports
 module.exports=router;

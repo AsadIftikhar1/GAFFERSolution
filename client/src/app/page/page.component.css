@@ -1,0 +1,10 @@
+.orange{
+background-color:#673ab7;
+color:whitesmoke;
+display: inline-block;
+width:90%;
+}
+.orange:hover{
+    background-color: blanchedalmond;
+    color:royalblue;
+}

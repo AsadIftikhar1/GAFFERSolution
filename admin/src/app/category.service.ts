@@ -10,6 +10,7 @@ const httpOptions = {
 };
 
 const apiUrl = "http://localhost:3000/admin/categories";
+const apiUrl3 = "http://localhost:3000/admin/categories/add-category";
 const apiUrl2 = "http://localhost:3000/admin/categories/details-category";
 const apiUrl5 = "http://localhost:3000/admin/categories/delete-category";
 
@@ -55,6 +56,13 @@ export class CategoryService {
     catchError(this.handleError)
   )
 }
+postCategory(data):Observable<any>{
+  return this.http.post(apiUrl3,data,httpOptions)
+  .pipe(
+    catchError(this.handleError)
+  )
+}
+
 deleteCategory(id: string): Observable<{}> {
   const url = `${apiUrl5}/${id}`;
   return this.http.get(url, httpOptions)
